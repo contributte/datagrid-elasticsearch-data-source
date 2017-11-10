@@ -7,4 +7,4 @@
 # ElasticsearchDataSource
 Elasticsearch DataSource for Ublaboo\\DataGrid
 
-Please see the documentation [here](http://ublaboo.paveljanda.com/datagrid-elasticsearch-data-source/)
+Please see the documentation [here](https://ublaboo.org/datagrid-elasticsearch-data-source/)
