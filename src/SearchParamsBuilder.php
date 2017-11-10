@@ -8,7 +8,7 @@ declare(strict_types=1);
  * @package     Ublaboo
  */
 
-namespace Ublaboo\ElasticsearchDataSource;
+namespace Ublaboo\DatagridElasticsearchDataSource;
 
 final class SearchParamsBuilder
 {

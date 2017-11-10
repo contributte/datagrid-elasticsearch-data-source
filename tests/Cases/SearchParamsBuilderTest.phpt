@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Ublaboo\ElasticsearchDataSource\Tests\Cases;
+namespace Ublaboo\DatagridElasticsearchDataSource\Tests\Cases;
 
 use Tester\Assert;
 use Tester\TestCase;
-use Ublaboo\ElasticsearchDataSource\SearchParamsBuilder;
+use Ublaboo\DatagridElasticsearchDataSource\SearchParamsBuilder;
 
 require __DIR__ . '/../bootstrap.php';
 

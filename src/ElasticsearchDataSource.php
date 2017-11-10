@@ -8,9 +8,8 @@ declare(strict_types=1);
  * @package     Ublaboo
  */
 
-namespace Ublaboo\ElasticsearchDataSource;
+namespace Ublaboo\DatagridElasticsearchDataSource;
 
-use App\DataGrid\Elasticsearch\SearchParamsBuilder;
 use Elasticsearch\Client;
 use Ublaboo\DataGrid\DataSource\FilterableDataSource;
 use Ublaboo\DataGrid\DataSource\IDataSource;

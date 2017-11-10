@@ -16,12 +16,12 @@
 	],
 	"autoload": {
 		"psr-4": {
-			"Ublaboo\\ElasticsearchDataSource\\": "src/"
+			"Ublaboo\\DatagridElasticsearchDataSource\\": "src/"
 		}
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"Ublaboo\\ElasticsearchDataSource\\Tests\\": "tests"
+			"Ublaboo\\DatagridElasticsearchDataSource\\Tests\\": "tests"
 		}
 	},
 	"require": {
