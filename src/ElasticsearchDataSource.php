@@ -40,7 +40,7 @@ final class ElasticsearchDataSource extends FilterableDataSource implements IDat
 
 	public function getCount(): int
 	{
-		$searchResult = $this->client->search($this->searchParamsBuilder->builderParams());
+		$searchResult = $this->client->search($this->searchParamsBuilder->buildParams());
 
 		return $searchResult['hits']['total'];
 	}
@@ -49,7 +49,7 @@ final class ElasticsearchDataSource extends FilterableDataSource implements IDat
 	public function getData(): array
 	{
 		if (empty($searchResult)) {
-			$searchResult = $this->client->search($this->searchParamsBuilder->builderParams());
+			$searchResult = $this->client->search($this->searchParamsBuilder->buildParams());
 		}
 
 		return array_map(
