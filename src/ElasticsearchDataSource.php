@@ -30,11 +30,23 @@ final class ElasticsearchDataSource extends FilterableDataSource implements IDat
 	 */
 	private $searchParamsBuilder;
 
+	/**
+	 * @var callable
+	 */
+	private $rowFactory;
 
-	public function __construct(Client $client, string $indexName, string $indexType)
+
+	public function __construct(Client $client, string $indexName, string $indexType, ?callable $rowFactory = NULL)
 	{
 		$this->client = $client;
 		$this->searchParamsBuilder = new SearchParamsBuilder($indexName, $indexType);
+
+		if ( ! $rowFactory) {
+			$rowFactory = static function (array $hit): array {
+				return $hit['_source'];
+			};
+		}
+		$this->rowFactory = $rowFactory;
 	}
 
 
@@ -53,7 +65,7 @@ final class ElasticsearchDataSource extends FilterableDataSource implements IDat
 		}
 
 		return array_map(
-			function(array $hit): array { return $hit['_source']; },
+			$this->rowFactory,
 			$searchResult['hits']['hits']
 		);
 	}
