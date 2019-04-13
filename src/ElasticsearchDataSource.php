@@ -54,7 +54,7 @@ final class ElasticsearchDataSource extends FilterableDataSource implements IDat
 	{
 		$searchResult = $this->client->search($this->searchParamsBuilder->buildParams());
 
-		return $searchResult['hits']['total'];
+		return is_array($searchResult['hits']['total']) ? $searchResult['hits']['total']['value'] : $searchResult['hits']['total'];
 	}
 
 
