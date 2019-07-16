@@ -19,11 +19,6 @@ final class SearchParamsBuilder
 	private $indexName;
 
 	/**
-	 * @var string
-	 */
-	private $indexType;
-
-	/**
 	 * @var array
 	 */
 	private $sort = [];
@@ -64,10 +59,9 @@ final class SearchParamsBuilder
 	private $idsQueries = [];
 
 
-	public function __construct(string $indexName, string $indexType)
+	public function __construct(string $indexName)
 	{
 		$this->indexName = $indexName;
-		$this->indexType = $indexType;
 	}
 
 
@@ -122,8 +116,7 @@ final class SearchParamsBuilder
 	public function buildParams(): array
 	{
 		$return = [
-			'index' => $this->indexName,
-			'type' => $this->indexType
+			'index' => $this->indexName
 		];
 
 		if (!empty($this->sort) || ($this->from !== null) || ($this->size !== null)) {
@@ -229,7 +222,6 @@ final class SearchParamsBuilder
 		foreach ($this->idsQueries as $ids) {
 			$return['body']['query']['bool']['must'][] = [
 				'ids' => [
-					'type' => $this->indexType,
 					'values' => $ids
 				]
 			];
