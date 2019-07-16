@@ -30,7 +30,6 @@ final class SearchParamsBuilderTest extends TestCase
 		Assert::same(
 			[
 				'index' => 'users',
-				'type' => 'user'
 			],
 			$this->searchParamsBuilder->buildParams()
 		);
@@ -44,7 +43,6 @@ final class SearchParamsBuilderTest extends TestCase
 		Assert::same(
 			[
 				'index' => 'users',
-				'type' => 'user',
 				'body' => [
 					'sort' => ['name' => ['order' => 'desc']]
 				]
@@ -62,7 +60,6 @@ final class SearchParamsBuilderTest extends TestCase
 		Assert::same(
 			[
 				'index' => 'users',
-				'type' => 'user',
 				'body' => [
 					'from' => 0,
 					'size' => 20
@@ -80,7 +77,6 @@ final class SearchParamsBuilderTest extends TestCase
 		Assert::same(
 			[
 				'index' => 'users',
-				'type' => 'user',
 				'body' => [
 					'query' => [
 						'bool' => [
@@ -109,7 +105,6 @@ final class SearchParamsBuilderTest extends TestCase
 		Assert::same(
 			[
 				'index' => 'users',
-				'type' => 'user',
 				'body' => [
 					'query' => [
 						'bool' => [
@@ -138,7 +133,6 @@ final class SearchParamsBuilderTest extends TestCase
 		Assert::same(
 			[
 				'index' => 'users',
-				'type' => 'user',
 				'body' => [
 					"query" => [
 						"bool" => [
@@ -182,7 +176,6 @@ final class SearchParamsBuilderTest extends TestCase
 		Assert::same(
 			[
 				'index' => 'users',
-				'type' => 'user',
 				'body' => [
 					"query" => [
 						"bool" => [
@@ -212,14 +205,12 @@ final class SearchParamsBuilderTest extends TestCase
 		Assert::same(
 			[
 				'index' => 'users',
-				'type' => 'user',
 				'body' => [
 					"query" => [
 						"bool" => [
 							'must' => [
 								[
 									'ids' => [
-										'type' => 'user',
 										'values' => [
 											0, 1, 1, 2, 3, 5, 8
 										]
@@ -249,7 +240,6 @@ final class SearchParamsBuilderTest extends TestCase
 		Assert::same(
 			[
 				'index' => 'users',
-				'type' => 'user',
 				'body' => [
 					'sort' => ['name' => ['order' => 'desc']],
 					'from' => 0,
@@ -285,7 +275,9 @@ final class SearchParamsBuilderTest extends TestCase
 									'range' => ['score' => ['gte' => 8, 'lte' => 64]]
 								],
 								[
-									'ids' => ['type' => 'user', 'values' => [0, 1, 1, 2, 3, 5, 8]],
+									'ids' => [
+										'values' => [0, 1, 1, 2, 3, 5, 8]
+									],
 								]
 							]
 						]
