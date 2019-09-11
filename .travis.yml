@@ -1,11 +1,10 @@
 language: php
 
 php:
-    - 7.1
-    - 7.2
+  - 7.3
 
 install:
-    - composer install --no-interaction --prefer-source
+  - composer install --no-interaction --prefer-source
 
 script:
-    - vendor/bin/tester -p php tests/
+  - vendor/bin/tester -p php tests/
