@@ -65,13 +65,13 @@ final class SearchParamsBuilder
 	}
 
 
-	public function addPhrasePrefixQuery(string $field, $query): void
+	public function addPhrasePrefixQuery(string $field, string $query): void
 	{
 		$this->phrasePrefixQueries[] = [$field => $query];
 	}
 
 
-	public function addMatchQuery(string $field, $query): void
+	public function addMatchQuery(string $field, string $query): void
 	{
 		$this->matchQueries[] = [$field => $query];
 	}
@@ -83,7 +83,7 @@ final class SearchParamsBuilder
 	}
 
 
-	public function addRangeQuery(string $field, $from, $to): void
+	public function addRangeQuery(string $field, ?int $from, ?int $to): void
 	{
 		$this->rangeQueries[] = [$field => ['from' => $from, 'to' => $to]];
 	}
@@ -116,14 +116,14 @@ final class SearchParamsBuilder
 	public function buildParams(): array
 	{
 		$return = [
-			'index' => $this->indexName
+			'index' => $this->indexName,
 		];
 
-		if (!empty($this->sort) || ($this->from !== null) || ($this->size !== null)) {
+		if ($this->sort !== [] || ($this->from !== null) || ($this->size !== null)) {
 			$return['body'] = [];
 		}
 
-		if (!empty($this->sort)) {
+		if ($this->sort !== []) {
 			$return['body']['sort'] = $this->sort;
 		}
 
@@ -135,18 +135,18 @@ final class SearchParamsBuilder
 			$return['body']['size'] = $this->size;
 		}
 
-		if (empty($this->phrasePrefixQueries)
-			&& empty($this->matchQueries)
-			&& empty($this->booleanMatchQueries)
-			&& empty($this->rangeQueries)
-			&& empty($this->idsQueries)) {
+		if ($this->phrasePrefixQueries === []
+			&& $this->matchQueries === []
+			&& $this->booleanMatchQueries === []
+			&& $this->rangeQueries === []
+			&& $this->idsQueries === []) {
 			return $return;
 		}
 
 		$return['body']['query'] = [
 			'bool' => [
-				'must' => []
-			]
+				'must' => [],
+			],
 		];
 
 		foreach ($this->phrasePrefixQueries as $phrasePrefixQuery) {
@@ -155,8 +155,8 @@ final class SearchParamsBuilder
 					'multi_match' => [
 						'query' => $query,
 						'type' => 'phrase_prefix',
-						'fields' => [$field]
-					]
+						'fields' => [$field],
+					],
 				];
 			}
 		}
@@ -166,16 +166,16 @@ final class SearchParamsBuilder
 				$return['body']['query']['bool']['must'][] = [
 					'match' => [
 						$field => [
-							'query' => $query
-						]
-					]
+							'query' => $query,
+						],
+					],
 				];
 			}
 		}
 
 		foreach ($this->booleanMatchQueries as $booleanMatchQuery) {
 			foreach ($booleanMatchQuery as $field => $queries) {
-				if (empty($queries)) {
+				if ($queries === []) {
 					continue;
 				}
 
@@ -185,16 +185,16 @@ final class SearchParamsBuilder
 					$boolFilter[] = [
 						'match' => [
 							$field => [
-								'query' => $query
-							]
-						]
+								'query' => $query,
+							],
+						],
 					];
 				}
 
 				$return['body']['query']['bool']['must'][] = [
 					'bool' => [
-						'should' => [$boolFilter]
-					]
+						'should' => [$boolFilter],
+					],
 				];
 			}
 		}
@@ -222,8 +222,8 @@ final class SearchParamsBuilder
 		foreach ($this->idsQueries as $ids) {
 			$return['body']['query']['bool']['must'][] = [
 				'ids' => [
-					'values' => $ids
-				]
+					'values' => $ids,
+				],
 			];
 		}
 

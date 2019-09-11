@@ -13,7 +13,12 @@ namespace Ublaboo\DatagridElasticsearchDataSource;
 use Elasticsearch\Client;
 use Ublaboo\DataGrid\DataSource\FilterableDataSource;
 use Ublaboo\DataGrid\DataSource\IDataSource;
-use Ublaboo\DataGrid\Filter;
+use Ublaboo\DataGrid\Filter\FilterDate;
+use Ublaboo\DataGrid\Filter\FilterDateRange;
+use Ublaboo\DataGrid\Filter\FilterMultiSelect;
+use Ublaboo\DataGrid\Filter\FilterRange;
+use Ublaboo\DataGrid\Filter\FilterSelect;
+use Ublaboo\DataGrid\Filter\FilterText;
 use Ublaboo\DataGrid\Utils\DateTimeHelper;
 use Ublaboo\DataGrid\Utils\Sorting;
 
@@ -36,16 +41,17 @@ final class ElasticsearchDataSource extends FilterableDataSource implements IDat
 	private $rowFactory;
 
 
-	public function __construct(Client $client, string $indexName, ?callable $rowFactory = NULL)
+	public function __construct(Client $client, string $indexName, ?callable $rowFactory = null)
 	{
 		$this->client = $client;
 		$this->searchParamsBuilder = new SearchParamsBuilder($indexName);
 
-		if ( ! $rowFactory) {
+		if ($rowFactory === null) {
 			$rowFactory = static function (array $hit): array {
 				return $hit['_source'];
 			};
 		}
+
 		$this->rowFactory = $rowFactory;
 	}
 
@@ -54,14 +60,23 @@ final class ElasticsearchDataSource extends FilterableDataSource implements IDat
 	{
 		$searchResult = $this->client->search($this->searchParamsBuilder->buildParams());
 
+		if (!isset($searchResult['hits'])) {
+			throw new \UnexpectedValueException;
+		}
+
 		return is_array($searchResult['hits']['total']) ? $searchResult['hits']['total']['value'] : $searchResult['hits']['total'];
 	}
 
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public function getData(): array
 	{
-		if (empty($searchResult)) {
-			$searchResult = $this->client->search($this->searchParamsBuilder->buildParams());
+		$searchResult = $this->client->search($this->searchParamsBuilder->buildParams());
+
+		if (!isset($searchResult['hits'])) {
+			throw new \UnexpectedValueException;
 		}
 
 		return array_map(
@@ -71,9 +86,12 @@ final class ElasticsearchDataSource extends FilterableDataSource implements IDat
 	}
 
 
-	public function filterOne(array $condition): self
+	/**
+	 * {@inheritDoc}
+	 */
+	public function filterOne(array $condition): IDataSource
 	{
-		foreach ($filter->getCondition() as $column => $value) {
+		foreach ($condition as $column => $value) {
 			$this->searchParamsBuilder->addIdsQuery($value);
 		}
 
@@ -81,7 +99,16 @@ final class ElasticsearchDataSource extends FilterableDataSource implements IDat
 	}
 
 
-	public function applyFilterDate(Filter\FilterDate $filter): self
+	public function limit(int $offset, int $limit): IDataSource
+	{
+		$this->searchParamsBuilder->setFrom($offset);
+		$this->searchParamsBuilder->setSize($limit);
+
+		return $this;
+	}
+
+
+	public function applyFilterDate(FilterDate $filter): void
 	{
 		foreach ($filter->getCondition() as $column => $value) {
 			$timestampFrom = null;
@@ -98,17 +125,13 @@ final class ElasticsearchDataSource extends FilterableDataSource implements IDat
 
 				$timestampTo = $dateTo->getTimestamp();
 
-				if ($timestampFrom || $timestampTo) {
-					$this->searchParamsBuilder->addRangeQuery($column, $timestampFrom, $timestampTo);
-				}
+				$this->searchParamsBuilder->addRangeQuery($column, $timestampFrom, $timestampTo);
 			}
 		}
-
-		return $this;
 	}
 
 
-	public function applyFilterDateRange(Filter\FilterDateRange $filter): self
+	public function applyFilterDateRange(FilterDateRange $filter): void
 	{
 		foreach ($filter->getCondition() as $column => $values) {
 			$timestampFrom = null;
@@ -128,26 +151,22 @@ final class ElasticsearchDataSource extends FilterableDataSource implements IDat
 				$timestampTo = $dateTo->getTimestamp();
 			}
 
-			if ($timestampFrom || $timestampTo) {
+			if (is_int($timestampFrom) || is_int($timestampTo)) {
 				$this->searchParamsBuilder->addRangeQuery($column, $timestampFrom, $timestampTo);
 			}
 		}
-
-		return $this;
 	}
 
 
-	public function applyFilterRange(Filter\FilterRange $filter): self
+	public function applyFilterRange(FilterRange $filter): void
 	{
 		foreach ($filter->getCondition() as $column => $value) {
 			$this->searchParamsBuilder->addRangeQuery($column, $value['from'] ?: null, $value['to'] ?: null);
 		}
-
-		return $this;
 	}
 
 
-	public function applyFilterText(Filter\FilterText $filter): self
+	public function applyFilterText(FilterText $filter): void
 	{
 		foreach ($filter->getCondition() as $column => $value) {
 			if ($filter->isExactSearch()) {
@@ -156,44 +175,30 @@ final class ElasticsearchDataSource extends FilterableDataSource implements IDat
 				$this->searchParamsBuilder->addPhrasePrefixQuery($column, $value);
 			}
 		}
-
-		return $this;
 	}
 
 
-	public function applyFilterMultiSelect(Filter\FilterMultiSelect $filter): self
+	public function applyFilterMultiSelect(FilterMultiSelect $filter): void
 	{
 		foreach ($filter->getCondition() as $column => $values) {
 			$this->searchParamsBuilder->addBooleanMatchQuery($column, $values);
 		}
-
-		return $this;
 	}
 
 
-	public function applyFilterSelect(Filter\FilterSelect $filter): self
+	public function applyFilterSelect(FilterSelect $filter): void
 	{
 		foreach ($filter->getCondition() as $column => $value) {
 			$this->searchParamsBuilder->addMatchQuery($column, $value);
 		}
-
-		return $this;
-	}
-
-
-	public function limit($offset, $limit): self
-	{
-		$this->searchParamsBuilder->setFrom($offset);
-		$this->searchParamsBuilder->setSize($limit);
-
-		return $this;
 	}
 
 
 	/**
+	 * {@inheritDoc}
 	 * @throws \RuntimeException
 	 */
-	public function sort(Sorting $sorting): self
+	public function sort(Sorting $sorting): IDataSource
 	{
 		if (is_callable($sorting->getSortCallback())) {
 			throw new \RuntimeException('No can do - not implemented yet');
@@ -206,5 +211,14 @@ final class ElasticsearchDataSource extends FilterableDataSource implements IDat
 		}
 
 		return $this;
+	}
+
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function getDataSource()
+	{
+		return $this->client;
 	}
 }
