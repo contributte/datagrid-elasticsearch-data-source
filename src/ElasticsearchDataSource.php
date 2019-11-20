@@ -22,7 +22,7 @@ use Ublaboo\DataGrid\Filter\FilterText;
 use Ublaboo\DataGrid\Utils\DateTimeHelper;
 use Ublaboo\DataGrid\Utils\Sorting;
 
-final class ElasticsearchDataSource extends FilterableDataSource implements IDataSource
+class ElasticsearchDataSource extends FilterableDataSource implements IDataSource
 {
 
 	/**
