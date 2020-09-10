@@ -71,7 +71,10 @@ final class SearchParamsBuilder
 	}
 
 
-	public function addMatchQuery(string $field, string $query): void
+	/**
+	 * @param mixed $query
+	 */
+	public function addMatchQuery(string $field, $query): void
 	{
 		$this->matchQueries[] = [$field => $query];
 	}

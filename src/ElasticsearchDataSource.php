@@ -26,14 +26,14 @@ class ElasticsearchDataSource extends FilterableDataSource implements IDataSourc
 {
 
 	/**
+	 * @var SearchParamsBuilder
+	 */
+	protected $searchParamsBuilder;
+
+	/**
 	 * @var Client
 	 */
 	private $client;
-
-	/**
-	 * @var SearchParamsBuilder
-	 */
-	private $searchParamsBuilder;
 
 	/**
 	 * @var callable

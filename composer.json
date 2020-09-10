@@ -35,8 +35,8 @@
 		"gamee/php-code-checker-rules": "^1.2"
 	},
 	"scripts": {
-		"app:phpstan": "php -d memory_limit=320M vendor/phpstan/phpstan/bin/phpstan analyse src -c vendor/gamee/php-code-checker-rules/phpstan.neon --level 7",
-		"app:phpcs": "vendor/bin/phpcs --standard=vendor/gamee/php-code-checker-rules/ruleset.xml --extensions=php,phpt --tab-width=4 --ignore=temp -sp src",
-		"app:phpcsfix": "vendor/bin/phpcbf --standard=vendor/gamee/php-code-checker-rules/ruleset.xml --extensions=php,phpt --tab-width=4 --ignore=temp -sp src"
+		"phpstan": "php -d memory_limit=320M vendor/phpstan/phpstan/bin/phpstan analyse src -c vendor/gamee/php-code-checker-rules/phpstan.neon --level 7",
+		"phpcs": "vendor/bin/phpcs --standard=vendor/gamee/php-code-checker-rules/ruleset.xml --extensions=php,phpt --tab-width=4 --ignore=temp -sp src",
+		"phpcsfix": "vendor/bin/phpcbf --standard=vendor/gamee/php-code-checker-rules/ruleset.xml --extensions=php,phpt --tab-width=4 --ignore=temp -sp src"
 	}
 }
