@@ -13,7 +13,7 @@ There is no problem using Elasticsearch as a data source for `contributte/datagr
 Download this package using composer:
 
 ```
-composer require ublaboo/datagrid-elasticsearch-data-source
+$ composer require ublaboo/datagrid-elasticsearch-data-source
 ```
 
 ## Usage
