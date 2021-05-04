@@ -1,22 +1,29 @@
-[![Build Status](https://travis-ci.org/ublaboo/datagrid-elasticsearch-data-source.svg?branch=master)](https://travis-ci.org/ublaboo/datagrid-elasticsearch-data-source)
-[![Latest Stable Version](https://poser.pugx.org/ublaboo/datagrid-elasticsearch-data-source/v/stable)](https://packagist.org/packages/ublaboo/datagrid-elasticsearch-data-source)
-[![License](https://poser.pugx.org/ublaboo/datagrid-elasticsearch-data-source/license)](https://packagist.org/packages/ublaboo/datagrid-elasticsearch-data-source)
-[![Total Downloads](https://poser.pugx.org/ublaboo/datagrid-elasticsearch-data-source/downloads)](https://packagist.org/packages/ublaboo/datagrid-elasticsearch-data-source)
-[![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/ublaboo/help)
+![](https://heatbadger.now.sh/github/readme/contributte/datagrid-elasticsearch-data-source/?deprecated=1)
 
-# ElasticsearchDataSource
+<p align=center>
+    <a href="https://bit.ly/ctteg"><img src="https://badgen.net/badge/support/gitter/cyan"></a>
+    <a href="https://bit.ly/cttfo"><img src="https://badgen.net/badge/support/forum/yellow"></a>
+    <a href="https://contributte.org/partners.html"><img src="https://badgen.net/badge/sponsor/donations/F96854"></a>
+</p>
 
-There is no problem using Elasticsearch as a data source for `contributte/datagrid`.
+<p align=center>
+    Website 🚀 <a href="https://contributte.org">contributte.org</a> | Contact 👨🏻‍💻 <a href="https://f3l1x.io">f3l1x.io</a> | Twitter 🐦 <a href="https://twitter.com/contributte">@contributte</a>
+</p>
 
-## Installation
+## Disclaimer
 
-Download this package using composer:
+| :warning: | This project is no longer being maintained. Please use [ublaboo/datagrid](https://github.com/ublaboo/datagrid).
+|---|---|
 
-```bash
-composer require ublaboo/datagrid-elasticsearch-data-source
-```
+| Composer | [`ublaboo/datagrid-elasticsearch-data-source`](https://packagist.org/packages/ublaboo/datagrid-elasticsearch-data-source) |
+|---| --- |
+| Version | ![](https://badgen.net/packagist/v/ublaboo/datagrid-elasticsearch-data-source) |
+| PHP | ![](https://badgen.net/packagist/php/ublaboo/datagrid-elasticsearch-data-source) |
+| License | ![](https://badgen.net/github/license/ublaboo/datagrid-elasticsearch-data-source) |
 
-## Usage
+## Documentation
+
+### Usage
 
 ```php
 <?php
@@ -74,3 +81,20 @@ final class UsersPresenter extends Presenter
 	}
 }
 ```
+
+## Development
+
+This package was maintain by these authors.
+
+<a href="https://github.com/f3l1x">
+  <img width="80" height="80" src="https://avatars2.githubusercontent.com/u/538058?v=3&s=80">
+</a>
+
+<a href="https://github.com/paveljanda">
+  <img width="80" height="80" src="https://avatars2.githubusercontent.com/u/1488874?v=3&s=80">
+</a>
+
+-----
+
+Consider to [support](https://contributte.org/partners.html) **contributte** development team.
+Also thank you for being used this package.
