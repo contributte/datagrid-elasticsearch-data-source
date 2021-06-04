@@ -1,37 +1,49 @@
 {
-	"name": "ublaboo/datagrid-elasticsearch-data-source",
-	"type": "library",
-	"description": "Elasticsearch DataSource for Ublaboo\\DataGrid",
-	"keywords": ["datagrid", "grid", "nette", "ublaboo", "database", "data", "source", "elasticsearch", "elastic"],
-	"homepage": "http://ublaboo.paveljanda.com/datagrid-elasticsearch-data-source",
-	"license": ["MIT"],
-	"support": {
-		"issues": "https://github.com/ublaboo/datagrid-elasticsearch-data-source/issues"
-	},
-	"authors": [
-		{
-			"name": "Pavel Janda",
-			"homepage": "http://paveljanda.com"
-		}
-	],
-	"autoload": {
-		"psr-4": {
-			"Ublaboo\\DatagridElasticsearchDataSource\\": "src/"
-		}
-	},
-	"autoload-dev": {
-		"psr-4": {
-			"Ublaboo\\DatagridElasticsearchDataSource\\Tests\\": "tests"
-		}
-	},
-	"require": {
-		"php": ">= 7.1",
-		"nette/application" : "^3.0",
-		"ublaboo/datagrid" : "~6.0",
-		"elasticsearch/elasticsearch": "^7.1"
-	},
-	"require-dev": {
-		"nette/tester" : "~2.3",
-		"gamee/php-code-checker-rules": "^1.2"
-	}
+  "name": "ublaboo/datagrid-elasticsearch-data-source",
+  "type": "library",
+  "description": "Elasticsearch DataSource for Ublaboo\\DataGrid",
+  "keywords": [
+    "datagrid",
+    "grid",
+    "nette",
+    "ublaboo",
+    "database",
+    "data",
+    "source",
+    "elasticsearch",
+    "elastic"
+  ],
+  "homepage": "http://ublaboo.paveljanda.com/datagrid-elasticsearch-data-source",
+  "license": [
+    "MIT"
+  ],
+  "support": {
+    "issues": "https://github.com/ublaboo/datagrid-elasticsearch-data-source/issues"
+  },
+  "authors": [
+    {
+      "name": "Pavel Janda",
+      "homepage": "http://paveljanda.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Ublaboo\\DatagridElasticsearchDataSource\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Ublaboo\\DatagridElasticsearchDataSource\\Tests\\": "tests"
+    }
+  },
+  "require": {
+    "php": ">= 7.1",
+    "nette/application": "^3.0",
+    "ublaboo/datagrid": "~6.0",
+    "elasticsearch/elasticsearch": "^7.1"
+  },
+  "require-dev": {
+    "nette/tester": "~2.3",
+    "gamee/php-code-checker-rules": "^1.2"
+  }
 }
