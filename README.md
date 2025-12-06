@@ -16,10 +16,10 @@
 |---|---|
 
 | Composer | [`ublaboo/datagrid-elasticsearch-data-source`](https://packagist.org/packages/ublaboo/datagrid-elasticsearch-data-source) |
-|---| --- |
+|---|---|
 | Version | ![](https://badgen.net/packagist/v/ublaboo/datagrid-elasticsearch-data-source) |
 | PHP | ![](https://badgen.net/packagist/php/ublaboo/datagrid-elasticsearch-data-source) |
-| License | ![](https://badgen.net/github/license/ublaboo/datagrid-elasticsearch-data-source) |
+| License | ![](https://badgen.net/github/license/contributte/datagrid-elasticsearch-data-source) |
 
 ## Documentation
 
@@ -84,7 +84,7 @@ final class UsersPresenter extends Presenter
 
 ## Development
 
-This package was maintain by these authors.
+This package was maintained by these authors.
 
 <a href="https://github.com/f3l1x">
   <img width="80" height="80" src="https://avatars2.githubusercontent.com/u/538058?v=3&s=80">
@@ -97,4 +97,4 @@ This package was maintain by these authors.
 -----
 
 Consider to [support](https://contributte.org/partners.html) **contributte** development team.
-Also thank you for being used this package.
+Also thank you for using this package.
