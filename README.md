@@ -12,7 +12,7 @@
 
 ## Disclaimer
 
-| :warning: | This project is no longer being maintained. Please use [ublaboo/datagrid](https://github.com/ublaboo/datagrid).
+| :warning: | This project is no longer being maintained. Please use [ublaboo/datagrid](https://github.com/ublaboo/datagrid). |
 |---|---|
 
 | Composer | [`ublaboo/datagrid-elasticsearch-data-source`](https://packagist.org/packages/ublaboo/datagrid-elasticsearch-data-source) |
